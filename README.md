@@ -22,5 +22,6 @@ Features of viewer app:
 
 ## Credit
 
-A big thanks to **assettocorsamods** for the link to **Giovanni Romagnoli's** AC Python API documentation.
-https://assettocorsamods.net/threads/doc-python-doc.59/ 
+A big thanks to **assettocorsamods** for:
+ - the link to **Giovanni Romagnoli's** AC Python API documentation. https://assettocorsamods.net/threads/doc-python-doc.59/
+ - a fantastic onboarding tutorial to modding in AC. https://assettocorsamods.net/threads/getting-started-with-ac-app-developing.716/
