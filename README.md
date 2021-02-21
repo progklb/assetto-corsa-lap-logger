@@ -58,7 +58,7 @@ By default logs are located at `C:\User\My Documents\Assetto Corsa\logs`
 
 > TODO: Replace with an image containing only the Lap Logger app.
 
-![Image](/documentation/20190518203937-HUD.jpg)
+![Image](/Documentation/20190518203937-HUD.jpg)
 
 ## Installation
 
