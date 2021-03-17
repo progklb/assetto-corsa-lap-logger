@@ -8,7 +8,10 @@ import os
 # Constants
 # -----------------------------------------
 
+# The name of the custom HUD window displayed when this app is active.
 APP_NAME = "Lap Logger"
+# Because the script is run from the context of the main .exe we need to point to provide a relative path to this script.
+LOG_DIR = "apps/python/laplogger/logs"
 
 
 # -----------------------------------------
@@ -146,9 +149,12 @@ def refreshUI():
 # -----------------------------------------
 
 def openLog():
-	# Because the script is run from the context of the main .exe we need to point to provide a relative path to this script.
-	LOG_DIR = "apps/python/laplogger/logs"
-	LOG_NAME = "{} - {} - {}".format(ac.getCarName(0), ac.getTrackName(0), ac.getTrackConfiguration(0))
+	
+	# Create a log name based on the curent vehicle-track combination
+	LOG_NAME = "{}-{}-{}.acl".format(ac.getCarName(0), ac.getTrackName(0), ac.getTrackConfiguration(0))
+
+	# TODO If no track configration is available, write "default"
+	# TODO Condider creating a spacer between log entries from different sessions.
 
 	if not os.path.exists(LOG_DIR):
 		os.mkdir(LOG_DIR)
