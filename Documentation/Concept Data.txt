@@ -1,0 +1,97 @@
+class Car
+{
+	name = "bmw_z4_gt3"
+	make = "BMW"
+	model = "Z4 GT3"
+}
+
+class Track
+{
+	name = "ks_nurburgring"
+	layout = "layout_gp_b"
+}
+
+class Session
+{
+	startTime = "20200811T10:04+2",
+	endTime = "20200811T10:32+2"
+	laps = Lap[]
+}
+
+class Lap
+{
+	time = 123456
+	splits = [38883, 49850, 41756]
+	invalidated = False
+}
+
+
+// Final
+// Each session creates a new session object containing a timestamp
+
+{
+	"car" : {
+		"name" : "bmw_z4_gt3",
+		"make" : "BMW",
+		"model" : "Z4 GT3",
+	},
+	"track" : {
+		"name" : "ks_nurburgring",
+		"layout" : "layout_gp_b"
+	},
+
+	"sessions" : [
+		{
+			"startTime" : "20200811T10:04+2",
+			"endTime" : "20200811T10:32+2",
+			"laps" : [
+				{
+					"time" : 123456, 
+					"splits" : [1234,1234,1234],
+					"invalidated" : False,
+					"tyreTemperatureFL": 70.0, 
+					"tyrePressureFL": 27.5, 
+					"tyreTemperatureFR": 70.5, 
+					"tyrePressureFR": 27.5, 
+					"tyreTemperatureRL": 70.5, 
+					"tyrePressureRL": 27.5, 
+					"tyreTemperatureRR": 70.5, 
+					"tyrePressureRR": 27.5, 
+				},
+				{
+					"time" : 123456, 
+					"splits" : [1234,1234,1234],
+					"invalidated" : True,
+					"tyreTemperatureFL": 70.0, 
+					"tyrePressureFL": 27.5, 
+					"tyreTemperatureFR": 70.5, 
+					"tyrePressureFR": 27.5, 
+					"tyreTemperatureRL": 70.5, 
+					"tyrePressureRL": 27.5, 
+					"tyreTemperatureRR": 70.5, 
+					"tyrePressureRR": 27.5,  
+				},
+			]
+		}
+	]
+
+}
+
+
+ac.getCarState(0, INFO_IDENTIFIER) where INFO_IDENTIFIER
+
+	SpeedMPH/SpeedKMH
+
+	BestLap
+	LapCount
+	LapInvalidated
+	LapTime
+	LastLap
+
+	CamberRad/CamberDeg
+	CurrentTyresCoreTemp
+	ThermalState
+	DynamicPressure
+
+	NormalizedSplinePosition
+	PerformanceMeter
