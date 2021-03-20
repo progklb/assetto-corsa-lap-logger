@@ -4,7 +4,7 @@ import os
 # Constants
 # -----------------------------------------
 
-# Because the script is run from the context of the main .exe we need to point to provide a relative path to this script.
+# Because the script is run from the context of the main .exe we need to provide a relative path to this script.
 LOG_DIR = "apps/python/laplogger/logs"
 
 
@@ -19,14 +19,11 @@ logFile = None
 # Logging
 # -----------------------------------------
 
-def openLog(carNameLine, trackNameLine, trackConfigLine):
+def openLog(vehicle, track):
 	'''Opens the car/track log file. If no file exists, one will be created.'''
 	
 	# Create a log name based on the curent vehicle-track combination
-	LOG_NAME = "{}-{}-{}.acl".format(carNameLine, trackNameLine, trackConfigLine or "default")
-
-	# TODO If no track configration is available, write "default"
-	# TODO Condider creating a spacer between log entries from different sessions.
+	LOG_NAME = "{}-{}-{}.acl".format(vehicle.name, track.name, track.layout or "default")
 
 	if not os.path.exists(LOG_DIR):
 		os.mkdir(LOG_DIR)
@@ -37,13 +34,12 @@ def openLog(carNameLine, trackNameLine, trackConfigLine):
 	logFile = open("{}/{}".format(LOG_DIR, LOG_NAME), "a+")
 
 	if shouldInit:
-		initLog(carNameLine, trackNameLine, trackConfigLine or "default")
+		initLog(vehicle, track)
 
 
-# TODO This should accept a Car and Track object.
-def initLog(carNameLine, trackNameLine, trackConfigLine):
+def initLog(vehicle, track):
 	'''Initialises the log file with important information regarding this log.'''
-	logFile.write("car: {}\ntrack: {}\nlayout: {}\n\n".format(carNameLine, trackNameLine, trackConfigLine))
+	logFile.write("car: {}\ntrack: {}\nlayout: {}\n\n".format(vehicle.name, track.name, track.layout or "default"))
 
 
 def writeLogEntry(lapData):

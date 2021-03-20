@@ -5,6 +5,8 @@ import sys
 import os
 
 import rw
+from models import Vehicle
+from models import Track
 
 # -----------------------------------------
 # Constants
@@ -143,7 +145,11 @@ def refreshUI():
 
 def openLog():
 	'''Opens a log file for the current session.'''
-	rw.openLog(ac.getCarName(0), ac.getTrackName(0), ac.getTrackConfiguration(0))
+
+	vehicle = Vehicle(ac.getCarName(0))
+	track = Track(ac.getTrackName(0), ac.getTrackConfiguration(0))
+
+	rw.openLog(vehicle, track)
 
 def writeLogEntry():
 	'''Writes a new log entry to the log file.'''
