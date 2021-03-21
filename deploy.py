@@ -15,4 +15,4 @@ print("\t⏳ ...")
 
 copy_tree(SRC_DIR, DST_DIR)
 
-print("✅ Deployed!")
+print("\t✅ Deployed!")
