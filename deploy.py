@@ -10,4 +10,9 @@ from distutils.dir_util import copy_tree
 SRC_DIR = "./assettocorsa"
 DST_DIR = "H:/Games/Steam/steamapps/common/assettocorsa"
 
+print("\t📁 {}  ->  {}".format(SRC_DIR, DST_DIR))
+print("\t⏳ ...")
+
 copy_tree(SRC_DIR, DST_DIR)
+
+print("✅ Deployed!")
