@@ -1,4 +1,11 @@
 import os
+import json
+
+from models import Vehicle
+from models import Track
+from models import Lap
+from models import Session
+from models import Log
 
 # -----------------------------------------
 # Constants
@@ -19,11 +26,10 @@ logFile = None
 # Logging
 # -----------------------------------------
 
-def openLog(vehicle, track):
+def openLog(log):
 	'''Opens the car/track log file. If no file exists, one will be created.'''
 	
-	# Create a log name based on the curent vehicle-track combination
-	LOG_NAME = "{}-{}-{}.acl".format(vehicle.name, track.name, track.layout or "default")
+	LOG_NAME = log.getFileName()
 
 	if not os.path.exists(LOG_DIR):
 		os.mkdir(LOG_DIR)
@@ -34,12 +40,14 @@ def openLog(vehicle, track):
 	logFile = open("{}/{}".format(LOG_DIR, LOG_NAME), "a+")
 
 	if shouldInit:
-		initLog(vehicle, track)
+		initLog(log)
 
 
-def initLog(vehicle, track):
-	'''Initialises the log file with important information regarding this log.'''
-	logFile.write("car: {}\ntrack: {}\nlayout: {}\n\n".format(vehicle.name, track.name, track.layout or "default"))
+def initLog(log):
+	'''Initialises the log file with important information for this log.'''
+
+	jsonDump = json.dumps(log, sort_keys=True, indent=4, default=lambda x: x.__dict__)
+	logFile.write(jsonDump)
 
 
 def writeLogEntry(lapData):

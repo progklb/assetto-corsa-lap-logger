@@ -1,17 +1,17 @@
-class Vehicle:
+class Vehicle(object):
 	"""Represents a vehicle"""
 	
 	def __init__(self, name):
 		self.name = name
 
-class Track:
+class Track(object):
 	"""Represents a track"""
 
 	def __init__(self, name, layout):
 		self.name = name
 		self.layout = layout
 
-class Lap:
+class Lap(object):
 	"""Represents a single lap around a track"""
 
 	def __init__(self):
@@ -19,22 +19,20 @@ class Lap:
 		self.splits = []
 		self.invalidated = False
 
-	# time = 0
-	# splits = []
-	# invalidated = False
-
-class Session:
+class Session(object):
 	"""Represents a single track session, consisting of multiple laps."""
 
-	startTime = ""
-	endTime = ""
-	laps = []
+	def __init__(self, startTime):
+		self.startTime = startTime
+		self.endTime = ""
+		self.laps = []
 
+class Log(object):
 
-
-class Log:
-
-	def __init__(self):
-		self.vehicle = {}
-		self.track = {}
+	def __init__(self, vehicle, track):
+		self.vehicle = vehicle
+		self.track = track
 		self.session = []
+
+	def getFileName(self):
+		return "{}-{}-{}.acl".format(self.vehicle.name, self.track.name, self.track.layout or "default")

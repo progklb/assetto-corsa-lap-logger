@@ -7,6 +7,7 @@ import os
 import rw
 from models import Vehicle
 from models import Track
+from models import Log
 
 # -----------------------------------------
 # Constants
@@ -148,8 +149,9 @@ def openLog():
 
 	vehicle = Vehicle(ac.getCarName(0))
 	track = Track(ac.getTrackName(0), ac.getTrackConfiguration(0))
+	log = Log(vehicle, track)
 
-	rw.openLog(vehicle, track)
+	rw.openLog(log)
 
 def writeLogEntry():
 	'''Writes a new log entry to the log file.'''
