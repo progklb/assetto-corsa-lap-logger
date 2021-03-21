@@ -49,12 +49,12 @@ config: layout_gp_b
 
 ### Logging
 
+By default, console logs are located at `C:\Users\<Username>\My Documents\Assetto Corsa\logs`
+
 There are two kinds of AC log commands available:
 
 - `ac.log` which logs to `py_log.txt`. This persists after the session is ended.
 - `ac.console` which logs to `log.txt` and is available via the console (Home key) in game. This persists only while running.
-
-By default, console logs are located at `C:\User\My Documents\Assetto Corsa\logs`
 
 > TODO: Replace with an image containing only the Lap Logger app.
 
