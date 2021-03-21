@@ -64,12 +64,18 @@ By default, console logs are located at `C:\User\My Documents\Assetto Corsa\logs
 
 In order to install:
 
-- Merge the folder `assettocorsa` with the `assettocorsa` game folder. This will place the app script at the correct location.
-- Ensure that the app is enabled in game.
+- **Manual**
+  - Merge the folder `assettocorsa` with the `assettocorsa` game folder (i.e. Assetto Corsa installation directory).
+
+- **Automated**
+  - Update the `deploy.py` script to point to your Assetto Corsa installation directory.
+  - Via terminal, execute the `python ./deploy.py`
+
+- After launching the game, ensure that the app is enabled in the settings menu.
 
 Troubleshooting:
 
-- Insect the logs should any issue occur (see **Logging** section)
+- Inspect the logs should any issue occur (see **Logging** section)
 
 ## Credit
 
