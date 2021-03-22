@@ -1,8 +1,13 @@
-import sys
 import ac
 import acsys
+import sys
 
 import os
+
+import rw
+from models import Vehicle
+from models import Track
+from models import Log
 
 # -----------------------------------------
 # Constants
@@ -10,8 +15,6 @@ import os
 
 # The name of the custom HUD window displayed when this app is active.
 APP_NAME = "Lap Logger"
-# Because the script is run from the context of the main .exe we need to point to provide a relative path to this script.
-LOG_DIR = "apps/python/laplogger/logs"
 
 
 # -----------------------------------------
@@ -33,6 +36,7 @@ bestLap = 0
 lastLap = 0
 
 lastLapInvalidated = False
+
 
 # -----------------------------------------
 # Asseto Corsa Events
@@ -70,17 +74,11 @@ def acMain(ac_version):
 
 	return APP_NAME
 
-
 def acUpdate(deltaT):
-	
-	# if (not active):
-		# return
-	
 	updateState()
 	refreshUI()
 
 def acShutdown():
-	# TODO Save lap logs
 	closeLog()
 
 
@@ -91,6 +89,7 @@ def acShutdown():
 def log(message, level = "INFO"):
 	'''Logs a message to the py_log with the (optional) specified level tag.'''
 	ac.log("laplogger [{}]: {}".format(level, message))
+
 
 def getFormattedLapTime(lapTime):
 	'''Returns a lap time string formatted for display.'''
@@ -121,7 +120,6 @@ def updateState():
 
 		lastLapInvalidated = False
 
-
 def refreshUI():
 	'''Updates the state of the UI to reflect the latest data.'''
 
@@ -139,9 +137,7 @@ def refreshUI():
 	global lblCurrentTime
 	ac.setText(lblCurrentTime, "Time: {}".format(getFormattedLapTime(ac.getCarState(0, acsys.CS.LapTime))))
 
-	# TODO
-	# Personal best
-	# Graph
+	# TODO Update UI according to latest mockups.
 
 
 # -----------------------------------------
@@ -149,36 +145,16 @@ def refreshUI():
 # -----------------------------------------
 
 def openLog():
-	
-	# Create a log name based on the curent vehicle-track combination
-	LOG_NAME = "{}-{}-{}.acl".format(ac.getCarName(0), ac.getTrackName(0), ac.getTrackConfiguration(0))
+	'''Opens a log file for the current session.'''
 
-	# TODO If no track configration is available, write "default"
-	# TODO Condider creating a spacer between log entries from different sessions.
+	vehicle = Vehicle(ac.getCarName(0))
+	track = Track(ac.getTrackName(0), ac.getTrackConfiguration(0))
+	log = Log(vehicle, track)
 
-	if not os.path.exists(LOG_DIR):
-		os.mkdir(LOG_DIR)
-
-	shouldInit = not os.path.exists("{}/{}".format(LOG_DIR, LOG_NAME))
-		
-	global logFile
-	logFile = open("{}/{}".format(LOG_DIR, LOG_NAME), "a+")
-
-	if shouldInit:
-		initLog()
-
-def initLog():
-	'''Initialises the log file with important information regarding this log.'''
-	carNameLine =		"car: {}".format(ac.getCarName(0))
-	trackNameLine =		"track: {}".format(ac.getTrackName(0))
-	trackConfigLine =	"config: {}".format(ac.getTrackConfiguration(0))
-
-	logFile.write("{}\n{}\n{}\n\n".format(carNameLine, trackNameLine, trackConfigLine))
+	rw.openLog(log)
 
 def writeLogEntry():
-	'''Writes a new log entry to the log using the current state information.'''
-	global logFile
-
+	'''Writes a new log entry to the log file.'''
 	lapData = {
 		"lap" : lapCount,
 		"time" : ac.getCarState(0, acsys.CS.LastLap),
@@ -186,11 +162,11 @@ def writeLogEntry():
 		"splits" : ac.getLastSplits(0)
 	}
 
-	logFile.write("{}\n".format(lapData))
+	rw.writeLogEntry(lapData)
 
 def closeLog():
-	global logFile
-	logFile.close()
+	'''Releases the current log file.'''
+	rw.closeLog()
 
 # -----------------------------------------
 # Event Handlers
