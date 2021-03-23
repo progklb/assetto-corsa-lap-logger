@@ -30,7 +30,7 @@ Features of viewer app:
 
 The app displays a custom in-game HUD when active.
 
-For each track-vehicle combination, a log file will be generated at the location `assettocorsa/apps/python/laplogger/logs` and session information will be written to this log. Logs assume the naming format of `vehicle_name - track_name - tracK_layout`.
+For each track-vehicle combination, a log file will be generated at the location `assettocorsa/apps/python/laplogger/logs` and session information will be written to this log. Logs assume the naming format of `vehicle_name - track_name - track_layout`.
 
 The header of the file identifies the session configuration, while the bulk of the file is dedicated to recording lap details. For example:
 

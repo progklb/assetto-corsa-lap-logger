@@ -24,7 +24,6 @@ APP_NAME = "Lap Logger"
 active = False
 
 appWindow = None
-logFile = None
 
 lblLapCount = None
 lblBestLap = None
