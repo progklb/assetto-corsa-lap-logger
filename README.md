@@ -69,15 +69,19 @@ vehicle:
   name: ks_nissan_gtr_gt3
 
 sessions:
-- laps:
-  - {"time": 135776, "invalidated": false, "lap": 1, "splits": [47536, 46472, 41768]}
-  - {"time": 125238, "invalidated": false, "lap": 2, "splits": [39054, 44658, 41526]}
-  config: {}
 
-- laps:
-  - {"time": 135776, "invalidated": false, "lap": 1, "splits": [47536, 46472, 41768]}
-  - {"time": 125238, "invalidated": false, "lap": 2, "splits": [39054, 44658, 41526]}
-  config: {}
+- session:
+    config: {}
+    laps:
+    - {"time": 135776, "invalidated": false, "lap": 1, "splits": [47536, 46472, 41768]}
+    - {"time": 125238, "invalidated": false, "lap": 2, "splits": [39054, 44658, 41526]}
+  
+
+- session:
+    config: {}
+    laps:
+    - {"time": 135776, "invalidated": false, "lap": 1, "splits": [47536, 46472, 41768]}
+    - {"time": 125238, "invalidated": false, "lap": 2, "splits": [39054, 44658, 41526]}
 ```
 
 > TODO: This log can then be visualised as a graph in order to inspect lap splits/times.
