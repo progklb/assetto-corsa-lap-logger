@@ -71,6 +71,7 @@ vehicle:
 sessions:
 
 - session:
+    date: "2021-01-02T12:34"
     config: {}
     laps:
     - {"time": 135776, "invalidated": false, "lap": 1, "splits": [47536, 46472, 41768]}
@@ -78,6 +79,7 @@ sessions:
   
 
 - session:
+    date: "2021-01-02T12:34"
     config: {}
     laps:
     - {"time": 135776, "invalidated": false, "lap": 1, "splits": [47536, 46472, 41768]}
@@ -85,6 +87,8 @@ sessions:
 ```
 
 > TODO: This log can then be visualised as a graph in order to inspect lap splits/times.
+
+> NOTE: It should be possible to look up the correct name/details of a vehicle by reading assettocorsa/content/cars/{vehiclename}/ui/ui_car.json.
 
 ### Logging
 
