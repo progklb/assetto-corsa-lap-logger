@@ -5,8 +5,11 @@ import sys
 import os
 
 import rw
+from logger import acLog
 from models import Vehicle
 from models import Track
+from models import Lap
+from models import Session
 from models import Log
 
 # -----------------------------------------
@@ -36,6 +39,8 @@ lastLap = 0
 
 lastLapInvalidated = False
 
+session = None
+
 
 # -----------------------------------------
 # Asseto Corsa Events
@@ -43,7 +48,7 @@ lastLapInvalidated = False
 
 def acMain(ac_version):
 
-	log("Starting {}".format(APP_NAME))
+	acLog("Starting {}".format(APP_NAME))
 
 	global appWindow
 	appWindow = ac.newApp(APP_NAME)
@@ -69,7 +74,7 @@ def acMain(ac_version):
 	lblCurrentTime = ac.addLabel(appWindow, "")
 	ac.setPosition(lblCurrentTime, 3, 120)
 
-	openLog()
+	setLog()
 
 	return APP_NAME
 
@@ -84,11 +89,6 @@ def acShutdown():
 # -----------------------------------------
 # Helper Functions
 # -----------------------------------------
-
-def log(message, level = "INFO"):
-	'''Logs a message to the py_log with the (optional) specified level tag.'''
-	ac.log("laplogger [{}]: {}".format(level, message))
-
 
 def getFormattedLapTime(lapTime):
 	'''Returns a lap time string formatted for display.'''
@@ -115,7 +115,7 @@ def updateState():
 	currentLap = ac.getCarState(0, acsys.CS.LapCount)
 	if (lapCount < currentLap):
 		lapCount = currentLap
-		writeLogEntry()
+		recordLap()
 
 		lastLapInvalidated = False
 
@@ -143,29 +143,42 @@ def refreshUI():
 # Logging
 # -----------------------------------------
 
-def openLog():
+def setLog():
 	'''Opens a log file for the current session.'''
 
 	vehicle = Vehicle(ac.getCarName(0))
 	track = Track(ac.getTrackName(0), ac.getTrackConfiguration(0))
 	log = Log(vehicle, track)
 
-	rw.openLog(log)
+	rw.setLog(log)
 
-def writeLogEntry():
+	from datetime import datetime
+
+	global session
+	session = Session(datetime.now)
+
+	#TODO Populate session data. Write to file.
+
+def recordLap():
 	'''Writes a new log entry to the log file.'''
-	lapData = {
-		"lap" : lapCount,
-		"time" : ac.getCarState(0, acsys.CS.LastLap),
-		"invalidated" : lastLapInvalidated,
-		"splits" : ac.getLastSplits(0)
-	}
 
-	rw.writeLogEntry(lapData)
+	global lastLapInvalidated
+
+	lapData = Lap()
+	lapData.lapNo = lapCount
+	lapData.time = ac.getCarState(0, acsys.CS.LastLap)
+	lapData.split = ac.getLastSplits(0)
+	lapData.invalidated = lastLapInvalidated
+
+	#TODO Populate lap data. Write to file.
+
+	rw.writeLap('!')
+
+	acLog('Lap completed')
 
 def closeLog():
-	'''Releases the current log file.'''
-	rw.closeLog()
+	#TODO Finalise session entry.
+	pass
 
 # -----------------------------------------
 # Event Handlers
@@ -174,9 +187,9 @@ def closeLog():
 def onAppDismissed():
 	ac.console("LapLogger Dismissed")
 	active = False
-	log("Dismissed")
+	acLog("Dismissed")
 
 def onAppActivated():
 	ac.console("LapLogger Activated")
 	active = True
-	log("Activated")
+	acLog("Activated")
