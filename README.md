@@ -36,28 +36,7 @@ The header of the file identifies the session configuration, while the bulk of t
 
 Filename: `bmw_z4_gt3 - ks_nurburgring - layout_gp_b`
 
-// TODO Change to YAML to support appending to file.
-```json
-{
-    "track": {
-        "layout": "indy", 
-        "name": "ks_brands_hatch"
-    }, 
-    "vehicle": {
-        "name": "ks_nissan_gtr_gt3"
-    },
-    "sessions": [
-        {
-			"laps": [
-				{"time": 135776, "invalidated": false, "lap": 1, "splits": [47536, 46472, 41768]},
-				{"time": 125238, "invalidated": false, "lap": 2, "splits": [39054, 44658, 41526]}
-			],
-			"config": {
-			}
-		}
-    ]
-}
-```
+
 
 ```yaml
 ---
@@ -87,6 +66,11 @@ sessions:
 ```
 
 > TODO: This log can then be visualised as a graph in order to inspect lap splits/times.
+
+> For validating YAML/JSON : https://remarkablemark.org/yaml-json-repl/
+> Investigate: single file obj/JSON -> YAML converters.
+>  - we can either pass objects to directly get converted to YAML
+>  - or we can generate JSON and then pass to a converter. 
 
 > NOTE: It should be possible to look up the correct name/details of a vehicle by reading assettocorsa/content/cars/{vehiclename}/ui/ui_car.json.
 
@@ -119,6 +103,10 @@ In order to install:
 Troubleshooting:
 
 - Inspect the logs should any issue occur (see **Logging** section)
+
+## Dependencies
+
+- [PyYAML](https://pypi.org/project/PyYAML/): `pip install pyYAML`
 
 ## Credit
 

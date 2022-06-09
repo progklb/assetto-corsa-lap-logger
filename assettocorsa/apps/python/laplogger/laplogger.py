@@ -147,6 +147,10 @@ def setLog():
 	'''Opens a log file for the current session.'''
 
 	vehicle = Vehicle(ac.getCarName(0))
+
+	# TODO Load car data as a model and extract.
+	# vehicle.make = content/cars/{ac.getCarName(0)/ui/...}
+
 	track = Track(ac.getTrackName(0), ac.getTrackConfiguration(0))
 	log = Log(vehicle, track)
 
